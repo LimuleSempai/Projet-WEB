@@ -2,13 +2,73 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="../Templates/template_style.css"/>
         <title>Dashboard</title>
-        <link rel="stylesheet" href="style\style-Dashboard.css">
-        <script src="Js\java-Dashboard.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="../style/style-Overview.css">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
 
     <body>
+        <header id="header">
+            <div class="progressBar-container">
+                <div class="progressBar" id="progressBar"></div>
+            </div>
+            <nav class="navbar">
+                <div class="logo">
+                    <a href="..\index.html">MyLogo</a>
+                </div>
+                <ul class="nav-ul" id="nav_ul">
+                    <li>
+                        <a href="..\index.html">Menu</a>
+                    </li>
+                    <li>
+                        <a href="..\Pages\Overview.html">Overview</a>
+                     </li>
+                    <li>
+                        <a href="..\Pages\blog.html">Blog</a>
+                     </li>
+                </ul>
+    
+                <div class="hamburger" id="hamburger">
+                    <div class="bar1"></div>
+                    <div class="bar2"></div>
+                    <div class="bar3"></div>
+                </div>
+            </nav>
+        </header>
         <h1 id="main-title">Dashboard</h1>
+            <div class="container">
+            <label for="CSV">Insert your .csv file here</label>
+            <input type="file" id="file-csv" name="CSV" accept=".csv , application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+            <div class="chart-container">
+                <canvas id="scatter-chart"></canvas>
+                <canvas id="sepal-length-histogram"></canvas>
+                <canvas id="variety-pie"></canvas>
+                <canvas id="sepal-line-chart"></canvas>
+            </div>
+        </div>
+        <script src="../script/overview.js"></script>
+        <script>
+            hamburger.onclick = () => {
+                hamburger.classList.toggle("open");
+                nav_ul.classList.toggle("slide");
+            }
+
+            onscroll = () => {
+                const page = document.documentElement;
+                let totalHeight = page.scrollHeight;
+                let visibleHeight = page.clientHeight;
+                let scrolling = page.scrollTop;
+                let max = page.scrollHeight - page.clientHeight;
+                progressBar.style.width = Math.floor(scrolling/max*100) +"%";
+
+                if(progressBar.style.width == "100%")
+                    progressBar.style.backgroundColor = "gray";
+                else 
+                    progressBar.style.backgroundColor = "rgb(255, 255, 255)";
+            }
+        </script>
     </body>
 
 
