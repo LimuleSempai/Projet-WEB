@@ -27,16 +27,33 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
     const bouton = document.getElementById('changerCouleur');
 
+    // Stocker les couleurs d'origine
+    const couleursOriginales = {
+        body: '#ffffff',
+        header: '#d2d2d2',
+        footer: '#d2d2d2'
+    };
+
+    let couleursChanger = false;
+
     bouton.addEventListener('click', function() {
         const body = document.getElementById('body');
         const header = document.getElementById('header');
         const footer = document.getElementById('footer');
 
-        body.style.backgroundColor = '#9a9a9a';
-        body.style.color = '#ffffff';
-        header.style.backgroundColor = '#4e4e4e';
-        header.style.color = '#ffffff';
-        footer.style.backgroundColor = '#4e4e4e';
-        footer.style.color = '#ffffff';
+        // Si les couleurs ont déjà été changées, rétablir les couleurs d'origine
+        if (couleursChanger) {
+            body.style.backgroundColor = couleursOriginales.body;
+            header.style.backgroundColor = couleursOriginales.header;
+            footer.style.backgroundColor = couleursOriginales.footer;
+            couleursChanger = false;
+        } else {
+            // Changer les couleurs à de nouveaux états
+            body.style.backgroundColor = '#9a9a9a'; // Nouvelle couleur pour le body
+            header.style.backgroundColor = '#4e4e4e'; // Nouvelle couleur pour le header
+            footer.style.backgroundColor = '#4e4e4e'; // Nouvelle couleur pour le footer
+            couleursChanger = true;
+        }
     });
 });
+
