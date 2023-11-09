@@ -33,8 +33,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const footer = document.getElementById('footer');
 
         body.style.backgroundColor = '#9a9a9a';
+        body.style.color = '#ffffff';
         header.style.backgroundColor = '#4e4e4e';
+        header.style.color = '#ffffff';
         footer.style.backgroundColor = '#4e4e4e';
-        
+        footer.style.color = '#ffffff';
     });
 });
