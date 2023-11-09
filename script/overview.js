@@ -1,4 +1,4 @@
-fetch('Dataset_iris.csv')
+fetch('../Dataset_iris.csv')
 	.then(response => response.text())
 	.then(data => {
 		const rows = data.split('\n').slice(1); // Skip the header row
