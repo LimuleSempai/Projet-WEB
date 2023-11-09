@@ -41,8 +41,7 @@
         <h1 id="main-title">Overview of your Data</h1>
         <label for="CSV">Insert your .csv file here</label>
         <input type="file" id="file-csv" name="CSV" accept=".csv , application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
-        <div class="chart-container">
-            <h1>Dataset Overview</h1>
+        <h1>Dataset Overview</h1>
         <input type="file" id="csv-file" accept=".csv">
 
         <div class="summary">
@@ -73,10 +72,13 @@
                 <h3>Column Statistics:</h3>
                 <ul id="column-stats-list"></ul>
             </div>
+        <div class="chart-container">
             <canvas id="scatter-chart"></canvas>
             <canvas id="sepal-length-histogram"></canvas>
             <canvas id="variety-pie"></canvas>
             <canvas id="sepal-line-chart"></canvas>
+            <canvas id="variety-bar-chart"></canvas>
+            <canvas id="radar-chart"></canvas>
         </div>
     </div>
     <script src="../script/overview.js"></script>
