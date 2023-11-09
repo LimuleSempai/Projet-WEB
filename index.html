@@ -3,18 +3,19 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scaled=0.1">
+        <script src="script/script_index.js"></script>
         <link rel="stylesheet" type="text/css" href="style/style-index.css"/>
         <link rel="shortcut icon" href="Images/logo.png">
         <title>Home</title>
     </head>
-    <body>
+    <body id="body">
         <header id="header">
             <div class="progressBar-container">
                 <div class="progressBar" id="progressBar"></div>
             </div>
             <nav class="navbar">
                 <div class="logo">
-                    <a href="">MyLogo</a>
+                    <a href="index.html">My Logo</a>
                 </div>
                 <ul class="nav-ul" id="nav_ul">
                     <li>
@@ -25,6 +26,9 @@
                     </li>
                     <li>
                         <a href="Pages\blog.html">Blog</a>
+                    </li>
+                    <li>
+                        <button id="changerCouleur">Change Color</button>
                     </li>
                 </ul>
 
@@ -78,29 +82,8 @@
         </article>
 
         <footer>
-            &copy;Quentin Laumonier
+            &copy;Quentin Laumonier, Thomas Odin and Benoît Catez
             <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Atque, adipisci.</p>
         </footer>
-
-        <script>
-            hamburger.onclick = () => {
-                hamburger.classList.toggle("open");
-                nav_ul.classList.toggle("slide");
-            }
-
-            onscroll = () => {
-                const page = document.documentElement;
-                let totalHeight = page.scrollHeight;
-                let visibleHeight = page.clientHeight;
-                let scrolling = page.scrollTop;
-                let max = page.scrollHeight - page.clientHeight;
-                progressBar.style.width = Math.floor(scrolling/max*100) +"%";
-
-                if(progressBar.style.width == "100%")
-                    progressBar.style.backgroundColor = "gray";
-                else 
-                    progressBar.style.backgroundColor = "rgb(255, 255, 255)";
-            }
-        </script>
     </body>
 </html>
