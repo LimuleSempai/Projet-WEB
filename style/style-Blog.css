@@ -60,11 +60,3 @@ input[type=submit]:hover {
     margin-top: 0;
   }
 } */
-
-.info .photos {
-  display: flex;
-  position: relative;
-  justify-content: space-between;
-  height: 300px;
-  padding: 10px;
-}
