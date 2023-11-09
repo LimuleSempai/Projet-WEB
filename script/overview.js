@@ -172,7 +172,7 @@ function chart(dataset) {
 	new Chart(varietyBarChartCtx, {
 		type: 'bar',
 		data: {
-			labels: allLabels;
+			labels: allLabels,
 			datasets: Object.keys(varietyData2).map(variety => ({
 				label: variety,
 				data: varietyData2[variety].lengths,
