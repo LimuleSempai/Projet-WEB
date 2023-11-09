@@ -1,4 +1,3 @@
-
 // Function to process the CSV file
 function processCSV(csv) {
     const rows = csv.split('\n').slice(1); // Skip the header row
