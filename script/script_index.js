@@ -12,8 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Gérer la barre de progression
     window.onscroll = () => {
         const page = document.documentElement;
-        let totalHeight = page.scrollHeight;
-        let visibleHeight = page.clientHeight;
         let scrolling = page.scrollTop;
         let max = page.scrollHeight - page.clientHeight;
         progressBar.style.width = Math.floor(scrolling / max * 100) + "%";
@@ -21,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (progressBar.style.width === "100%") {
         progressBar.style.backgroundColor = "gray";
         } else {
-        progressBar.style.backgroundColor = "rgb(255, 255, 255)";
+        progressBar.style.backgroundColor = "#ffffff";
         }
     };
 });
@@ -30,9 +28,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const bouton = document.getElementById('changerCouleur');
 
     bouton.addEventListener('click', function() {
-        const header = document.getElementById('header');
         const body = document.getElementById('body');
-        header.style.backgroundColor = '#28a745';
-        body.style.backgroundColor = '#28a745';
+        const header = document.getElementById('header');
+        const footer = document.getElementById('footer');
+
+        body.style.backgroundColor = '#9a9a9a';
+        header.style.backgroundColor = '#4e4e4e';
+        footer.style.backgroundColor = '#4e4e4e';
+        
     });
 });
