@@ -160,7 +160,7 @@ function processCSV(csv) {
 }
 
 // Listen for file input change
-const fileInput = document.getElementById('csv-file');
+const fileInput = document.getElementById('file-csv');
 fileInput.addEventListener('change', (event) => {
     const file = event.target.files[0];
     if (file) {
