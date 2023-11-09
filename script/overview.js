@@ -1,4 +1,3 @@
-
 // Function to process the CSV file
 function processCSV(csv) {
     const rows = csv.split('\n').slice(1); // Skip the header row
@@ -168,12 +167,12 @@ function chart(dataset) {
 		varietyData2[item.variety].lengths.push(item.petal_length);
 		varietyData2[item.variety].labels.push(`${item.petal_length} cm`);
 	});
-
+	const allLabels = Array.from(new Set(dataset.map(item => `${item.petal_length} cm`)));
 	const varietyBarChartCtx = document.getElementById('variety-bar-chart').getContext('2d');
 	new Chart(varietyBarChartCtx, {
 		type: 'bar',
 		data: {
-			labels: varietyData2['Setosa'].labels, // Assuming 'Setosa' has all variations
+			labels: allLabels;
 			datasets: Object.keys(varietyData2).map(variety => ({
 				label: variety,
 				data: varietyData2[variety].lengths,
