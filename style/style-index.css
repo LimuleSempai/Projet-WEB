@@ -73,8 +73,17 @@ header button {
     font-size: 1.5rem;
 }
 
-.nav-ul a:hover,
-.nav-ul button:hover {
+.nav-ul label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.5em;
+    height: 2em;
+    font-size: 17px;
+    margin: 15px;
+}
+
+.nav-ul a:hover {
     background-color: rgba(114, 114, 114, 0.4);
     border-radius: 5px;
     animation: flou 0.5s;
