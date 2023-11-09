@@ -1,3 +1,4 @@
+
 // Function to process the CSV file
 function processCSV(csv) {
     const rows = csv.split('\n').slice(1); // Skip the header row
@@ -167,36 +168,28 @@ function chart(dataset) {
 		varietyData2[item.variety].lengths.push(item.petal_length);
 		varietyData2[item.variety].labels.push(`${item.petal_length} cm`);
 	});
-	const allLabels = Array.from(new Set(dataset.map(item => `${item.petal_length} cm`)));
-	const varietyBarChartCtx = document.getElementById('variety-bar-chart').getContext('2d');
-	new Chart(varietyBarChartCtx, {
-		type: 'bar',
-		data: {
-			labels: allLabels,
-			datasets: Object.keys(varietyData2).map(variety => ({
-				label: variety,
-				data: varietyData2[variety].lengths,
-				backgroundColor: `rgba(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255},0.5)`,
-			})),
-		},
-		options: {
-			scales: {
-				x: {
-					title: {
-						display: true,
-						text: 'Petal Length',
-					},
-				},
-				y: {
-					beginAtZero: true,
-					title: {
-						display: true,
-						text: 'Frequency',
-					},
-				},
-			},
-		},
+
+	// Calculate statistics for Petal Length by Variety
+	const statistics = {};
+
+	Object.keys(varietyData2).forEach(variety => {
+		const lengths = varietyData2[variety].lengths;
+		const mean = lengths.reduce((a, b) => a + b, 0) / lengths.length;
+		const sortedLengths = lengths.slice().sort((a, b) => a - b);
+		const median = (sortedLengths[Math.floor(sortedLengths.length / 2)] + sortedLengths[Math.ceil(sortedLengths.length / 2)]) / 2;
+		const stdDev = Math.sqrt(lengths.reduce((s, length) => s + Math.pow(length - mean, 2), 0) / (lengths.length - 1));
+		statistics[variety] = { mean, median, stdDev };
 	});
+
+	// Create an array of labels and data for the statistics
+	const statsLabels = Object.keys(statistics);
+	const statsData = statsLabels.map(variety => ({
+		variety,
+		mean: statistics[variety].mean,
+		median: statistics[variety].median,
+		stdDev: statistics[variety].stdDev,
+	}));
+
 
 	// Create a radar chart for Sepal and Petal Dimensions
 	const radarData = dataset.map(item => ({
@@ -207,16 +200,95 @@ function chart(dataset) {
 		petal_width: item.petal_width,
 	}));
 
+	const varietyBarChartCtx = document.getElementById('variety-bar-chart').getContext('2d');
+	new Chart(varietyBarChartCtx, {
+		type: 'bar',
+		data: {
+			labels: statsLabels,
+			datasets: [
+				{
+					label: 'Mean',
+					data: statsData.map(item => item.mean.toFixed(2)),
+					backgroundColor: 'rgba(75, 192, 192, 0.5)',
+				},
+				{
+					label: 'Median',
+					data: statsData.map(item => item.median.toFixed(2)),
+					backgroundColor: 'rgba(255, 99, 132, 0.5)',
+				},
+				{
+					label: 'Standard Deviation',
+					data: statsData.map(item => item.stdDev.toFixed(2)),
+					backgroundColor: 'rgba(54, 162, 235, 0.5)',
+				},
+			],
+		},
+		options: {
+			scales: {
+				x: {
+					title: {
+						display: true,
+						text: 'Variety',
+					},
+				},
+				y: {
+					beginAtZero: true,
+					title: {
+						display: true,
+						text: 'Value',
+					},
+				},
+			},
+		},
+	});
+
+	
 	const radarLabels = Object.keys(radarData[0]).filter(key => key !== 'variety');
+
+	// Calculate statistics for Radar Chart for Sepal and Petal Dimensions
+	const radarStatistics = {};
+
+	Object.keys(varietyData2).forEach(variety => {
+		const dimensions = radarData.filter(item => item.variety === variety);
+		const mean = dimensions.reduce((acc, item) => ({
+			sepal_length: acc.sepal_length + item.sepal_length,
+			sepal_width: acc.sepal_width + item.sepal_width,
+			petal_length: acc.petal_length + item.petal_length,
+			petal_width: acc.petal_width + item.petal_width,
+		}), { sepal_length: 0, sepal_width: 0, petal_length: 0, petal_width: 0 });
+
+		const count = dimensions.length;
+
+		radarStatistics[variety] = {
+			mean: {
+				sepal_length: mean.sepal_length / count,
+				sepal_width: mean.sepal_width / count,
+				petal_length: mean.petal_length / count,
+				petal_width: mean.petal_width / count,
+			},
+		};
+	});
+
+	// Create an array of labels and data for the statistics
+	const radarStatsLabels = Object.keys(radarStatistics);
+	const radarStatsData = radarStatsLabels.map(variety => ({
+		variety,
+		mean: radarStatistics[variety].mean,
+	}));
 
 	const radarChartCtx = document.getElementById('radar-chart').getContext('2d');
 	new Chart(radarChartCtx, {
 		type: 'radar',
 		data: {
 			labels: radarLabels,
-			datasets: radarData.map(item => ({
+			datasets: radarStatsData.map(item => ({
 				label: item.variety,
-				data: radarLabels.map(label => item[label]),
+				data: [
+					item.mean.sepal_length.toFixed(2),
+					item.mean.sepal_width.toFixed(2),
+					item.mean.petal_length.toFixed(2),
+					item.mean.petal_width.toFixed(2),
+				],
 				backgroundColor: `rgba(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255},0.5)`,
 			})),
 		},
@@ -228,7 +300,10 @@ function chart(dataset) {
 			},
 		},
 	});
+
 }
+
+
 
 // Function to calculate column names, data shape, and display the dataset table
 function displayColumnNamesAndDataShape(data) {
