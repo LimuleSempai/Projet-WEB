@@ -76,8 +76,6 @@ function calculateColumnStatistics(data) {
             const uniqueValues = getUniqueValues(columnData);
             listItem.innerHTML += `<br> Unique Values: ${uniqueValues.length}`;
             listItem.innerHTML += `<br> Values: ${uniqueValues.join(', ')}`;
-        } else {
-            listItem.innerHTML += ` Mean: ${mean.toFixed(2)}, Std Dev: ${stdDev.toFixed(2)}`;
         }
         columnStatsList.appendChild(listItem);
     });
