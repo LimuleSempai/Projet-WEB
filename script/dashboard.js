@@ -16,8 +16,6 @@ fetch('../Dataset_iris.csv')
             }
         }).filter(Boolean); // Remove any undefined values
 
-        displayColumnNamesAndDataShape(dataset);
-        calculateColumnStatistics(dataset);
         chart1(dataset);
     })
     .catch(error => console.error('Error:', error));

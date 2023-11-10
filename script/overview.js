@@ -18,7 +18,6 @@ fetch('../Dataset_iris.csv')
 
         displayColumnNamesAndDataShape(dataset);
         calculateColumnStatistics(dataset);
-        chart1(dataset);
     })
     .catch(error => console.error('Error:', error));
 
