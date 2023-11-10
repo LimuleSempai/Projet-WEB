@@ -1,21 +1,26 @@
-fetch('../Dataset_iris.csv')
-	.then(response => response.text())
-	.then(data => {
-		const rows = data.split('\n').slice(1); // Skip the header row
-    	const dataset = rows.map(row => {
-			const [sepal_length, sepal_width, petal_length, petal_width, variety] = row.split(',');
-			return {
-				sepal_length: parseFloat(sepal_length),
-				sepal_width: parseFloat(sepal_width),
-				petal_length: parseFloat(petal_length),
-				petal_width: parseFloat(petal_width),
-				variety: variety,
-			};
-		});
-		displayColumnNamesAndDataShape(dataset);
-		calculateColumnStatistics(dataset);
-	})
-	.catch(error => console.error('Error:', error));
+fetch('Dataset_iris.csv')
+    .then(response => response.text())
+    .then(data => {
+        const rows = data.split('\n').slice(1); // Skip the header row
+        const dataset = rows.map(row => {
+            const values = row.split(',');
+            if (values.length === 5) { // Check if the row has the expected number of elements
+                const [sepal_length, sepal_width, petal_length, petal_width, variety] = values;
+                return {
+                    sepal_length: parseFloat(sepal_length),
+                    sepal_width: parseFloat(sepal_width),
+                    petal_length: parseFloat(petal_length),
+                    petal_width: parseFloat(petal_width),
+                    variety: variety.trim(), // Trim any extra spaces
+                };
+            }
+        }).filter(Boolean); // Remove any undefined values
+
+        displayColumnNamesAndDataShape(dataset);
+        calculateColumnStatistics(dataset);
+        chart1(dataset);
+    })
+    .catch(error => console.error('Error:', error));
 
     // Function to calculate column names, data shape, and display the dataset table
 function displayColumnNamesAndDataShape(data) {
