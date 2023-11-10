@@ -280,6 +280,10 @@ footer {
     bottom: 0;
 }
 
-#space{
+.space{
     height: 50px;
+}
+
+#end_message{
+    color: gray;
 }
